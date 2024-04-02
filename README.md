@@ -59,6 +59,8 @@
 | block              | string | null: false |
 | building           | string | null: false |
 | phone_number       | string | null: false |
+| user               | reference | null: false, foreign_key: true |
+| item               | reference | null: false, foreign_key: true |
 
 ### Association
 
