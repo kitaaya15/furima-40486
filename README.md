@@ -6,10 +6,12 @@
 | ------------------ | ------ | ----------- |
 | nickname           | string | null: false,|
 | email              | string | null: false, unique: true |
-| password           | string | null: false |
-| name               | string | null: false |
-| name_reading       | string | null: false |
-| birthday           | string | null: false |
+| encrypted_password | string | null: false |
+| last_name          | string | null: false |
+| first_name         | string | null: false |
+| last_name_reading  | string | null: false |
+| first_name_reading | string | null: false |
+| birthday           | date   | null: false |
 
 ### Association
 
@@ -19,50 +21,49 @@
 
 ## items テーブル
 
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| item_name          | text   | null: false |
-| description        | text   | null: false |
-| category           | string | null: false |
-| condition          | string | null: false |
-| fee                | string | null: false |
-| region             | string | null: false |
-| days               | string | null: false |
-| price              | string | null: false |
-| user               | reference | null: false, foreign_key: true |
+| Column             | Type    | Options     |
+| ------------------ | ------  | ----------- |
+| item_name          | text    | null: false |
+| description        | text    | null: false |
+| detail_id          | integer | null: false |
+| detail_id          | integer | null: false |
+| detail_id          | integer | null: false |
+| detail_id          | integer | null: false |
+| price              | integer | null: false |
+| user               | references | null: false, foreign_key: true |
 
 ### Association
 
 - has_one     :address
-- has_one     :purchases
-- belongs_to  :users
+- has_one     :purchase
+- belongs_to  :user
 
-## items テーブル
-
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| user               | reference | null: false, foreign_key: true |
-| item               | reference | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to  :users
-- belongs_to  :items
-
-## address テーブル
+## purchases テーブル
 
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
-| post_code          | string | null: false |
-| prefecture         | string | null: false |
-| city               | string | null: false |
-| block              | string | null: false |
-| building           | string | null: false |
-| phone_number       | string | null: false |
-| user               | reference | null: false, foreign_key: true |
-| item               | reference | null: false, foreign_key: true |
+| user               | references | null: false, foreign_key: true |
+| item               | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to  :users
-- belongs_to  :items
+- belongs_to  :user
+- belongs_to  :item
+
+## addresses テーブル
+
+| Column             | Type    | Options     |
+| ------------------ | ------  | ----------- |
+| post_code          | string  | null: false |
+| detail_id          | integer | null: false |
+| city               | string  | null: false |
+| block              | string  | null: false |
+| building           | string  |
+| phone_number       | string  | null: false |
+| user               | references | null: false, foreign_key: true |
+| item               | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to  :user
+- belongs_to  :item
