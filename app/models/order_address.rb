@@ -1,6 +1,6 @@
-class OderAddress
+class OrderAddress
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postcode, :prefecture, :city, :block, :building, :phone_number
+  attr_accessor :user_id, :item_id, :postcode, :prefecture_id, :city, :block, :building, :phone_number
 
   with_options presence: true do
     validates :user_id
@@ -13,6 +13,6 @@ class OderAddress
   end
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
-    Adress.create(order_id: order.id, postcode: postcode, prefecture_id: prefecture_id, city: city, block: block, building: building, phone_number: phone_number)
+    Address.create(order_id: order.id, postcode: postcode, prefecture_id: prefecture_id, city: city, block: block, building: building, phone_number: phone_number)
   end
 end
