@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   before_action :non_purchased_item, only: [:index, :create]
 
   def index
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order_address = OrderAddress.new
   end
 
@@ -27,7 +28,16 @@ class OrdersController < ApplicationController
       :block,
       :building,
       :phone_number
-    ).merge(user_id: current_user.id, item_id: params[:item_id])
+    ).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+  end
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: order_params[:token],
+      currency: 'jpy'
+    )
   end
 
   def non_purchased_item

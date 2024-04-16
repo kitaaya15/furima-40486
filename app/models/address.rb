@@ -1,3 +1,3 @@
 class Address < ApplicationRecord
-  belongs_to :oder
+  belongs_to :order
 end
